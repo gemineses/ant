@@ -1,0 +1,93 @@
+<h6 id="world"></h6>
+<!--Graphics-->
+<script>
+	var graphicsPaint = function(what){
+		document.getElementById("world").innerHTML = document.getElementById("world").innerHTML + "<br />" + what;
+	}
+	var log = function(what){
+		console.log(what);
+		graphicsPaint(what);
+	};
+</script>
+
+<!--Selection-->
+<script>
+	log("selection 0%");
+	log("selection 100%");
+</script>
+
+<!--Actions-->
+<script>
+	log("actions 0%");
+	var remember = function(who, what){
+		who.reminders.push(what);
+		log("remember execute by " + who.name + ", " + what);
+	};
+	
+	var reminders = function(who){
+		log("reminders executed");
+		log(who.name + " said - " + who.reminders);
+	}
+	log("actions 100%");
+</script>
+
+<!--Colony Functions-->
+<script>
+	log("colony functions 0%");
+	colony = {};
+	var colonyAdd = function(who){
+		colony[who.name] = who;
+	}
+	var colonyRemove = function(){
+		
+	}
+	log("colony functions 100%");
+</script>
+
+<!--CoreProcess-->
+<script>
+	log("core 0%");
+	var save = function(){
+		var data, filename, link;
+
+		var csv = JSON.stringify(colony);
+		
+		if (csv == null) return;
+
+		filename = 'antColonybk.txt';
+
+		if (!csv.match(/^data:text\/csv/i)) {
+			csv = 'data:text/csv;charset=utf-8,' + csv;
+		}
+		data = encodeURI(csv);
+
+		link = document.createElement('a');
+		link.setAttribute('href', data);
+		link.setAttribute('download', filename);
+		link.setAttribute('target', '_blank');
+		link.click();
+		log('colony saved');
+	}
+	var load = function(objects){
+		colony = objects;
+		log('colony restored');
+	}
+	log("core 100%");
+</script>
+
+<!--Start UP-->
+<script>
+	var ant = {
+		"id":0,
+		"name":"ant01",
+		"status": "i'm alive", 
+		"reminders":[]
+	};
+	
+	var goLive = function(){
+		log("start up running");
+	};
+
+	goLive();
+</script>
+
